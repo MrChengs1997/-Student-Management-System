@@ -1,0 +1,332 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>无标题文档</title>
+
+    <link href="../static/asserts/css/bootstrap.min.css"  rel="stylesheet">
+
+    <!-- Custom styles for this template th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}"-->
+    <link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
+
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+
+
+
+    <script language="JavaScript" src="js/jquery.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            //顶部导航切换
+            $(".nav li a").click(function(){
+                $(".nav li a.selected").removeClass("selected")
+                $(this).addClass("selected");
+            });
+
+            //导航切换
+            $(".menuson .header").click(function(){
+                var $parent = $(this).parent();
+                $(".menuson>li.active").not($parent).removeClass("active open").find('.sub-menus').hide();
+                $parent.addClass("active");
+                if(!!$(this).next('.sub-menus').size()){
+                    if($parent.hasClass("open")){
+                        $parent.removeClass("open").find('.sub-menus').hide();
+                    }else{
+                        $parent.addClass("open").find('.sub-menus').show();
+                    }
+                }
+            });
+
+            // 三级菜单点击
+            $('.sub-menus li').click(function(e) {
+                $(".sub-menus li.active").removeClass("active")
+                $(this).addClass("active");
+            });
+
+            $('.title').click(function(){
+                var $ul = $(this).next('ul');
+                $('dd').find('.menuson').slideUp();
+                if($ul.is(':visible')){
+                    $(this).next('.menuson').slideUp();
+                }else{
+                    $(this).next('.menuson').slideDown();
+                }
+            });
+
+            //
+            $(document).ready(function(){
+                $(".click").click(function(){
+                    $(".tip").fadeIn(200);
+                });
+
+                $(".tiptop a").click(function(){
+                    $(".tip").fadeOut(200);
+                });
+
+                $(".sure").click(function(){
+                    $(".tip").fadeOut(100);
+                });
+
+                $(".cancel").click(function(){
+                    $(".tip").fadeOut(100);
+                });
+
+            });
+
+            //结束
+        })
+    </script>
+
+
+</head>
+
+<body style="background:url(images/topbg.gif) repeat-x;">
+
+<!--
+    作者：1287221322@qq.com
+    时间：2018-12-25
+    描述：顶部
+-->
+<div class="topleft" >
+    <a href="main.html" target="_parent"><img src="images/logo.png" title="系统首页" /></a>
+</div>
+
+<ul class="nav">
+    <li><a href="default.html" target="rightFrame" class="selected"><img src="images/icon01.png" title="工作台" /><h2>工作台</h2></a></li>
+    <li><a href="imgtable.html" target="rightFrame"><img src="images/icon02.png" title="模型管理" /><h2>模型管理</h2></a></li>
+    <li><a href="imglist.html"  target="rightFrame"><img src="images/icon03.png" title="模块设计" /><h2>模块设计</h2></a></li>
+    <li><a href="tools.html"  target="rightFrame"><img src="images/icon04.png" title="常用工具" /><h2>常用工具</h2></a></li>
+    <li><a href="computer.html" target="rightFrame"><img src="images/icon05.png" title="文件管理" /><h2>文件管理</h2></a></li>
+    <li><a href="tab.html"  target="rightFrame"><img src="images/icon06.png" title="系统设置" /><h2>系统设置</h2></a></li>
+</ul>
+
+<div class="topright">
+    <ul>
+        <li><span><img src="images/help.png" title="帮助"  class="helpimg"/></span><a href="#">帮助</a></li>
+        <li><a href="#">关于</a></li>
+        <li><a href="login.html" target="_parent">退出</a></li>
+    </ul>
+
+    <div class="user">
+        <span>[[${session.username}]]</span>
+        <i>消息</i>
+        <b>5</b>
+    </div>
+</div>
+
+<!--
+    作者：1287221322@qq.com
+    时间：2018-12-25
+    描述：左侧
+    需要修改位置
+-->
+<div id="lefts" th:fragment="left">
+    <div class="lefttop"><span></span>通讯录</div>
+
+    <dl class="leftmenu">
+
+        <dd>
+            <div class="title">
+                <span><img src="images/leftico01.png" /></span>管理信息
+            </div>
+            <ul class="menuson">
+
+                <li>
+                    <div class="header">
+                        <cite></cite>
+                        <a href="index.html" target="rightFrame">首页模版</a>
+                        <i></i>
+                    </div>
+                    <ul class="sub-menus">
+                        <li><a href="javascript:;">文件管理</a></li>
+                        <li><a href="javascript:;">模型信息配置</a></li>
+                        <li><a href="javascript:;">基本内容</a></li>
+                        <li><a href="javascript:;">自定义</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <div class="header">
+                        <cite></cite>
+                        <a href="/todatalist" target="rightFrame">数据列表</a>
+                        <i></i>
+                    </div>
+                    <ul class="sub-menus">
+                        <li><a href="javascript:;">文件数据</a></li>
+                        <li><a href="javascript:;">学生数据列表</a></li>
+                        <li><a href="javascript:;">我的数据列表</a></li>
+                        <li><a href="javascript:;">自定义</a></li>
+                    </ul>
+                </li>
+
+                <li class="active"><cite></cite><a href="/todatalist" target="rightFrame">查询学生信息</a><i></i></li>
+                <li><cite></cite><a href="imgtable.html" target="rightFrame">图片数据表</a><i></i></li>
+                <li><cite></cite><a href="form.html" target="rightFrame">添加编辑</a><i></i></li>
+                <li><cite></cite><a href="imglist.html" target="rightFrame">图片列表</a><i></i></li>
+                <li><cite></cite><a href="imglist1.html" target="rightFrame">自定义</a><i></i></li>
+                <li><cite></cite><a href="tools.html" target="rightFrame">常用工具</a><i></i></li>
+                <li><cite></cite><a href="filelist.html" target="rightFrame">信息管理</a><i></i></li>
+                <li><cite></cite><a href="tab.html" target="rightFrame">Tab页</a><i></i></li>
+                <li><cite></cite><a href="error.html" target="rightFrame">404页面</a><i></i></li>
+            </ul>
+        </dd>
+
+
+        <dd>
+            <div class="title">
+                <span><img src="images/leftico02.png" /></span>其他设置
+            </div>
+            <ul class="menuson">
+                <li><cite></cite><a href="flow.html" target="rightFrame">流程图</a><i></i></li>
+                <li><cite></cite><a href="project.html" target="rightFrame">项目申报</a><i></i></li>
+                <li><cite></cite><a href="search.html" target="rightFrame">档案列表显示</a><i></i></li>
+                <li><cite></cite><a href="tech.html" target="rightFrame">技术支持</a><i></i></li>
+            </ul>
+        </dd>
+
+
+        <dd><div class="title"><span><img src="images/leftico03.png" /></span>编辑器</div>
+            <ul class="menuson">
+                <li><cite></cite><a href="#">自定义</a><i></i></li>
+                <li><cite></cite><a href="#">常用资料</a><i></i></li>
+                <li><cite></cite><a href="#">信息列表</a><i></i></li>
+                <li><cite></cite><a href="#">其他</a><i></i></li>
+            </ul>
+        </dd>
+
+
+        <dd><div class="title"><span><img src="images/leftico04.png" /></span>日期管理</div>
+            <ul class="menuson">
+                <li><cite></cite><a href="#">自定义</a><i></i></li>
+                <li><cite></cite><a href="#">常用资料</a><i></i></li>
+                <li><cite></cite><a href="#">信息列表</a><i></i></li>
+                <li><cite></cite><a href="#">其他</a><i></i></li>
+            </ul>
+
+        </dd>
+
+    </dl>
+</div>
+
+
+<!--
+    作者：1287221322@qq.com
+    时间：2018-12-25
+    描述：右侧
+    需要修改位置
+-->
+<div id="silderRight"  >
+    <div class="place">
+        <span>位置：</span>
+        <ul class="placeul">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">数据表</a></li>
+            <li><a href="#">基本内容</a></li>
+        </ul>
+    </div>
+
+    <div class="rightinfo">
+
+        <div class="tools">
+
+            <ul class="toolbar">
+                <li class="click"><span><img src="images/t01.png" /></span><a th:href="@{/add}">添加</a></li>
+                <li class="click"><span><img src="images/t02.png" /></span><a  >修改个人信息</a></li>
+                <li><span><img src="images/t03.png" /></span><a href="#">删除</a></li>
+                <li><span><img src="images/t04.png" /></span>统计</li>
+            </ul>
+
+
+            <ul class="toolbar1">
+                <li><span><img src="images/t05.png" /></span>设置</li>
+            </ul>
+
+        </div>
+
+
+        <table class="tablelist">
+            <thead>
+            <tr>
+
+                <th >编号<i class="sort"><img src="images/px.gif" /></i></th>
+                <th>姓名</th>
+
+                <th>年龄</th>
+                <th>性别</th>
+                <th>时间</th>
+                <th>班级</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr th:each="stu:${stus}">
+
+                    <td th:text="${stu.id}" ></td>
+                    <td th:text="${stu.name}"></td>
+                    <td th:text="${stu.age} "></td>
+                    <td th:text="${stu.sex} ==0?'男':'女'"></td>
+                    <td th:text="${#dates.format(stu.enterdate,'yyyy-MM-dd')}"></td>
+                    <td th:text="${stu.clazz}"></td>
+                    <td><a href="#" th:href="@{/delete/} + ${stu.id} ">删除</a>
+                        <a href="#" th:href="@{/toupdate/} + ${stu.id}">修改</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <div class="pagin">
+            <div class="message">共<i class="blue">[[${size}]]</i><!--条记录，当前显示第&nbsp;--><i class="blue">&nbsp;</i>条记录</div>
+            <ul class="paginList">
+                <li class="paginItem"><a href="javascript:;"><span class="pagepre"></span></a></li>
+                <li class="paginItem"><a href="javascript:;">1</a></li>
+                <li class="paginItem current"><a href="javascript:;">2</a></li>
+                <li class="paginItem"><a href="javascript:;">3</a></li>
+                <li class="paginItem"><a href="javascript:;">4</a></li>
+                <li class="paginItem"><a href="javascript:;">5</a></li>
+                <li class="paginItem more"><a href="javascript:;">...</a></li>
+                <li class="paginItem"><a href="javascript:;">10</a></li>
+                <li class="paginItem"><a href="javascript:;"><span class="pagenxt"></span></a></li>
+            </ul>
+        </div>
+
+
+        <div class="tip">
+            <div class="tiptop"><span>提示信息</span><a></a></div>
+
+            <div class="tipinfo">
+                <span><img src="images/ticon.png" /></span>
+                <div class="tipright">
+                    <p>是否确认对信息的修改 ？</p>
+                    <cite>如果是请点击确定按钮 ，否则请点取消。</cite>
+                </div>
+            </div>
+
+            <div class="tipbtn">
+                <input name="" type="button"  class="sure" value="确定" />&nbsp;
+                <input name="" type="button"  class="cancel" value="取消" />
+            </div>
+
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $('.tablelist tbody tr:odd').addClass('odd');
+    </script>
+
+
+
+</div>
+
+<!--
+    作者：1287221322@qq.com
+    时间：2018-12-25
+    描述：底部
+    需要修改位置
+-->
+<div class="footer" th:fragment="footer">
+    <span>仅供学习交流，请勿用于任何商业用途</span>
+    <i>版权所有 2014 uimaker.com</i>
+</div>
+
+</body>
+</html>

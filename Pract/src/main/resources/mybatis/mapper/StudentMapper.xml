@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cr.test.mapper.StudentMapper">
+
+
+    <select id="LoginStu" resultType="int">
+        select count(*) from t_student where name=#{name} and pwd=#{pwd}
+    </select>
+    
+    <select id="getStus" resultType="com.cr.test.pojo.Student">
+        select * from t_student;
+    </select>
+
+    <!--添加学生-->
+    <insert id="addStudents">
+         insert into  t_student(id,name,pwd,age,sex,enterdate,clazz) values
+         (#{id},#{name},#{pwd},#{age},#{sex},#{enterdate},#{clazz})
+    </insert>
+
+    <!-- 删除一个员工 -->
+    <delete id="deleteStuById">
+        DELETE FROM t_student where id=#{id}
+    </delete>
+
+    <!-- 根据id查询 -->
+    <select id="getStuById" resultType="com.cr.test.pojo.Student">
+        SELECT * FROM t_student WHERE id=#{id}
+    </select>
+
+    <!--更新员工-->
+    <update id="updateStu">
+        update t_student set
+        id=#{id},name=#{name},pwd=#{pwd},age=#{age},sex=#{sex},enterdate=#{enterdate},clazz=#{clazz}
+    where id = #{id}
+</update>
+
+    <!--查询个数 -->
+    <select id="size" resultType="int">
+        select count(*) from t_student;
+    </select>
+
+</mapper>
